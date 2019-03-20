@@ -206,6 +206,7 @@ fields = []
 clicks_to_victory = rows * cols - mines
 clicks = 0
 
+#ADJUSTING SIZES FOR SMALL GAMEBOARD
 if cols <= 10:
     font_size = 15
     FOOTER_HEIGHT = 25
@@ -215,6 +216,7 @@ else:
     FOOTER_HEIGHT = 50
     FOOTER_PADDING = 10
 
+#COMPUTING WINDOW SIZE
 WINDOW_WIDTH = (Field.field_size + 1) * cols - 1
 WINDOW_HEIGHT = (Field.field_size + 1) * rows - 1 + FOOTER_HEIGHT
 
@@ -251,10 +253,12 @@ if not mines >= Field.counter:
         if i == Field.counter:
             i = 0
 else:
-    print("Too many mines selected for actual size.")
+    raise Exception("Too many mines selected for actual size.")
 
+#CHECK MINE TYPE RELATIVELY
 def is_on(field_types, position, index):
 
+#CAN TAKE ARRAY OF TYPES OR SINGLE TYPE
     def check_types_array(where):
         if isinstance(field_types, str):
             return fields[where].type == field_types
@@ -358,11 +362,12 @@ while game_status:
     clock.tick(60)
 
 total_time = int(time.time() - start_time)
-
+#SHOW ALL MINES
 list(map(lambda x:x.trigger(),fields))
 
 resume = 1
 
+#END LOOP
 while resume:
     check = 0
 
